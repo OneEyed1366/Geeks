@@ -28,6 +28,7 @@ function createChessTable(size = 8) {
         isBlack = !isBlack
       }
 
+      td.id = `${i}-${j}`
       td.style.height = '50px'
       td.style.width = '50px'
 
@@ -40,7 +41,7 @@ function createChessTable(size = 8) {
       tr.appendChild(td)
       isBlack = !isBlack;
     }
-    document.getElementById('toInsert').appendChild(tr)
+    document.getElementById('chessToInsert').appendChild(tr)
   }
   for (let letter of columns) {
     const td = document.createElement('td')
@@ -51,7 +52,7 @@ function createChessTable(size = 8) {
 
     trr.appendChild(td)
   }
-  document.getElementById('toInsert').appendChild(trr)
+  document.getElementById('chessToInsert').appendChild(trr)
 }
 
 function colorifyChessTable() {
@@ -67,5 +68,33 @@ function colorifyChessTable() {
   }
 }
 
-createChessTable();
-colorifyChessTable();
+function placeFiguresRandom(size = 7) {
+  /*
+    В задании не упомянуто, в каком количестве и на каких позициях добавлять фигуры, поэтому я сделаю произвольную расстановку
+    на основе генератора псевдослучайных чисел
+   */
+  const figures = [
+    'К',
+    'Ф',
+    'П',
+    'Кн',
+    'С'
+  ]
+
+  for (let i = 0; i < size; i++) {
+    const iD = `${Math.floor(Math.random() * (7 - 1 + 1)) + 1}-${Math.floor(Math.random() * (7 - 1 + 1)) + 1}`
+    const figure = figures[Math.floor(Math.random() * (figures.length - 1 + 1)) + 0]
+    const donor = document.getElementById(iD)
+
+    if (donor.className.split(' ')[1] === 'main_black') {
+      donor.style.color = 'white'
+    }
+
+    document.getElementById(iD).innerHTML = figure
+
+  }
+}
+
+createChessTable()
+colorifyChessTable()
+placeFiguresRandom()
