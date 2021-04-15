@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>Корзина - Прокопенко А.И.</title>
+</head>
+<body>
+  <section id="main">
+    <section class="nav">
+      <ul>
+        <li><a href="index.html">Главная страница</a></li>
+        <li><a href="cart.html">Корзина</a></li>
+      </ul>
+    </section>
+    <section class="catalog">
+      <div id="catalogToInsert" class="catalog__block"></div>
+    </section>
+    <section class="shopping-cart">
+      <div class="shopping-cart__block block">
+        <div id="shoppingCartToInsert"  class="block__item"></div>
+        <div class="block__buttons">
+          <button onclick="hideAndSeek('shoppingAdress', 'block')">Далее</button>
+        </div>
+      </div>
+      <div id="shoppingAdress" class="shopping-cart__block block">
+        <div class="block__form">
+          <label for="adress">Введите адрес доставки</label>
+          <textarea name="" placeholder="г.Воронеж, ул.Героев Сибиряков, д.00А, кв.0" id="adress" cols="30" rows="10"></textarea>
+        </div>
+        <div class="block__buttons">
+          <button onclick="hideAndSeek('shoppingComments', 'block')">Далее</button>
+        </div>
+      </div><div id="shoppingComments" class="shopping-cart__block block">
+        <div class="block__form">
+          <label for="comments">Укажите Ваши пожелания по поводу доставки товара</label>
+          <textarea name="" placeholder="Пусть её привезет Ваш лучший Единорог!" id="adress" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script src="./2.js"></script>
+</body>
+</html>
