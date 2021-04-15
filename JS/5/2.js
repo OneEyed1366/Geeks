@@ -24,14 +24,24 @@ const products = {
   }
 }
 let bill = 0
+let proceedAdress = false
+let proceedComments = false
+
+function hideAndSeek(whos, show = none) {
+  const elem = document.getElementById(whos)
+
+  elem.style.display = show
+} 
 
 function getCatalog (items = products) {
   const listOl = document.createElement('ol')
 
   for (let item in items) {
     const listLi = document.createElement('li')
-    const liBtn = document.createElement('button')
+    const liBtnDel = document.createElement('button')
     const liImg = document.createElement('img')
+    /* Предположим, что пользователь уже выбрал свои товары. В таком случае, оставим возможность лишь удалять товары */
+    bill += items[item].price
 
     liImg.src = items[item].url
     liImg.style.width = "5rem"
@@ -39,14 +49,16 @@ function getCatalog (items = products) {
     liImg.onmouseenter = () => {liImg.style.width = "20rem"}
     liImg.onmouseleave = () => {liImg.style.width = "5rem"}
 
-    liBtn.innerHTML = "Добавить в корзину"
-    liBtn.style.margin = "0 1rem"
-    liBtn.onclick = () => {bill += items[item].price}
+    liBtnDel.innerHTML = "Удалить из корзины"
+    liBtnDel.style.margin = "0 1rem"
+    liBtnDel.onclick = () => {(bill >= 0) && (
+      bill - items[item].price >= 0) ? bill -= items[item].price : console.log(
+        'Вы не добавили товар в корзину!')}
 
     listLi.innerHTML = `${item}: ${items[item].price}$`
     listLi.style.padding = '0.5rem'
 
-    listLi.appendChild(liBtn)
+    listLi.appendChild(liBtnDel)
     listLi.appendChild(liImg)
     listOl.appendChild(listLi)
   }
@@ -55,34 +67,15 @@ function getCatalog (items = products) {
 }
 
 function calcPaymentBill() {
-  shoppingDonor.innerHTML = `Общая сумма покупок: ${bill}$`
-  shoppingDonor.style.backgroundColor = `${
-    colors[Math
-      .floor(Math.random() * (Object.keys(colors).length - 1 + 1)) + 0]}`
+  if (bill == 0) {
+    shoppingDonor.innerHTML = 'Ваша корзина пуста!'
+  } else {
+    shoppingDonor.innerHTML = `Общая сумма покупок: ${bill}$`
+  }
 }
-// function calcShoppingCart () {
-//   const count = Math.floor(Math.random() * (Object.keys(products).length - 1 + 1)) + 0
-//   let result = 0
-//   let i = 0
-
-//   for (const product in products) {
-//     result += products[product]
-
-//     if (i === count) {
-//       if (i === 0) {
-//         shoppingDonor.innerHTML = 'В Вашей корзине нет товаров!'
-//       } else {
-//         shoppingDonor.innerHTML = `Количество товаров: ${i}<br />Общая сумма покупок: ${result}$`
-//       }
-
-//       break
-//     }
-    
-//     i++
-//   }
-// }
 
 getCatalog()
 setInterval(() => {
   calcPaymentBill()
+  hideAndSeek('shoppingAdress', proceedAdress)
 }, 1000)
