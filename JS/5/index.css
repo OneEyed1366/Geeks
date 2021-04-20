@@ -1,0 +1,20 @@
+#main {
+  display: flex;
+  flex-flow: column wrap;
+}
+#main #shoppingAdress, #main #shoppingComments {
+  display: none;
+}
+#main section {
+  display: flex;
+  flex-flow: column wrap;
+}
+#main .shopping-cart * {
+  display: flex;
+  flex-flow: column wrap;
+  width: 70%;
+  margin-bottom: .3rem;
+}
+.chess-table {
+  text-align: center;
+}
