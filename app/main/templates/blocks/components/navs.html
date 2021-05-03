@@ -1,0 +1,24 @@
+<a href="/" class="logo"></a>
+<ul class="menu">
+    <li>
+        <a href="/"
+            class="{% if request.path == '/' %} active {% endif %}"
+        >
+            домой
+        </a>
+    </li>
+    <li>
+        <a href="products"
+            class="{% if request.path == '/products' %} active {% endif %}"
+        >
+            продукты
+        </a>
+    </li>
+    <li>
+        <a href="contact"
+            class="{% if request.path == '/contact' %} active {% endif %}"
+        >
+            контакты
+        </a>
+    </li>
+</ul>
