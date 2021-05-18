@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = path.join(BASE_DIR, "templates")
 MEDIA_DIR = path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'auth_app.User'
+LOGIN_URL = '/auth/in/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/

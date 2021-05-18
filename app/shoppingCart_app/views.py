@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import ShoppingCart, ShoppingCartTax
 from main.models import Product
 
-
+@login_required
 def index(request):
     data = {
         "datas": ShoppingCart.objects.all(),
@@ -11,7 +12,7 @@ def index(request):
     }
     return render(request, "shoppingCart_app/index.html", context=data)
 
-
+@login_required
 def add(request, pk):
     product = get_object_or_404(Product, pk=pk)
     shopp_cart = ShoppingCart.objects.filter(
@@ -25,7 +26,7 @@ def add(request, pk):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def remove(request, pk):
     product = get_object_or_404(Product, pk=pk)
     shopp_cart = ShoppingCart.objects.filter(

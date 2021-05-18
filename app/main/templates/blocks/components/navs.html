@@ -35,6 +35,7 @@
             контакты
         </a>
     </li>
+    {% if user.is_authenticated %}
     <li>
         <a href="/cart"
             class="{% if request.path == '/cart' %} active {% endif %}"
@@ -42,4 +43,5 @@
             Корзина: {{ data |default:'пусто' }}
         </a>
     </li>
+    {% endif %}
 </ul>
