@@ -1,34 +1,45 @@
 from django.db import models
 from os import path
-from json import load
+
+class Category(models.Model):
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
-    img_hero = models.ImageField(blank=True, upload_to=path.join(
+    hero = models.ImageField(blank=True, verbose_name="Лицо товара", upload_to=path.join(
         'img',
         'products',
     ))
-    text_title = models.CharField(max_length=100)
-    text_desc = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, verbose_name="Название")
+    desc = models.CharField(max_length=100, verbose_name="Описание")
+    price = models.FloatField(max_length=20, verbose_name="Цена")
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('title',)
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
     def __str__(self):
-        return f"Карточка товара -> {self.text_title}"
+        return f"Карточка товара -> {self.title}"
 
-    def configure(self):
-        with open(path.join(
-            'media',
-            'bd',
-            'products.json'
-        ), "r+", encoding="utf-8") as f:
-            products = load(f)
+class ProductImages(models.Model):
+    product = models.ForeignKey(Product, related_name="imgs", on_delete=models.CASCADE)
+    img = models.ImageField(
+        "Фотографии товара", upload_to=path.join('img', 'products',))
 
-        for product_id in products:
-            number_id = product_id
-            data = {
-                "text_title": products[product_id]["title"],
-                "text_desc": products[product_id]["desc"],
-            }
+    class Meta:
+        ordering = ('product',)
+        verbose_name = 'Фотография'
+        verbose_name_plural = 'Фотографии'
 
-            Product.objects.update_or_create(
-                    id = number_id,
-                    defaults = data
-                    )
+    def __str__(self):
+        return f"Фотография товара {self.product.title}"

@@ -893,6 +893,8 @@ td:first-child {
 }
 
 .details-products {
+	display: flex;
+	flex-flow: column wrap;
 	padding-left: 98px;
 	padding-right: 98px;
 	margin-top: 98px;
@@ -919,6 +921,10 @@ td:first-child {
 	position: relative;
 	float: left;
 	margin-right: 10px;
+}
+.slider-control .block img
+{
+	width: 100%;
 }
 .slider-control a .text {
 	display: none;

@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="slider">
 		<div class="header clearfix">
-			{% include 'blocks/components/navs.html' %}
+			{% include 'blocks/components/navs.html' with data=cart %}
 			<a href="#" class="search"></a>
 		</div>
 		<div class="text-slider">
@@ -35,36 +35,16 @@
 		<div class="tab-content">
 			{% for i in products %}
 				<div class="block">
-					<a href="#">
-						<img src="{{ i.img_hero.url }}" alt=""> 
+					<a href="{% url 'main_app:products-selected' pk=i.pk %}">
+						<img src="{{ i.hero.url }}" alt=""> 
 						<div class="text">
 							<img src="{% static 'main/img/icon-hover.png' %}" alt="img">
-							<h4>{{ i.text_title }}</h4>
-							<p>{{ i.text_desc }}</p>
+							<h4>{{ i.title }}</h4>
+							<p>{{ i.desc }}</p>
 						</div> 
 					</a>
 				</div>
-			{% endfor %}
-			<div class="block">
-				<a href="#">
-					<img src="{% static 'main/img/product-1.jpg' %}" alt=""> 
-					<div class="text">
-						<img src="{% static 'main/img/icon-hover.png' %}" alt="img">
-						<h4>Отличный стул</h4>
-						<p>Расположитесь комфортно. </p>
-					</div> 
-				</a>
-			</div>
-			<div class="block">
-				<a href="#">
-					<img src="{% static 'main/img/product-2.jpg' %}" alt="">
-					<div class="text">
-						<img src="{% static 'main/img/icon-hover.png' %}" alt="">
-						<h4>Стул повышенного качества</h4>
-						<p>Не оторваться. </p>
-					</div>
-				</a>
-			</div>	
+			{% endfor %}	
 		</div>
 	</div>
 	<div class="clr"></div>

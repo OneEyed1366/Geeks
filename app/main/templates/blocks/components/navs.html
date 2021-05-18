@@ -1,6 +1,20 @@
 <a href="/" class="logo"></a>
 <ul class="menu">
     <li>
+        {% if user.is_authenticated %}
+            <a href="{% url 'auth:logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'auth:login' %}">Войти</a>
+        {% endif %}
+    </li>
+    {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'auth:edit' %}">
+            {{ user.first_name |default:'Пользователь' }}_A.K.A._{{ user.username | default:'someMan' }}
+        </a>
+    </li>
+    {% endif %}
+    <li>
         <a href="/"
             class="{% if request.path == '/' %} active {% endif %}"
         >
@@ -9,7 +23,7 @@
     </li>
     <li>
         <a href="products"
-            class="{% if request.path == '/products' %} active {% endif %}"
+            class="{% if 'product' in request.path %} active {% endif %}"
         >
             продукты
         </a>
@@ -19,6 +33,13 @@
             class="{% if request.path == '/contact' %} active {% endif %}"
         >
             контакты
+        </a>
+    </li>
+    <li>
+        <a href="/cart"
+            class="{% if request.path == '/cart' %} active {% endif %}"
+        >
+            Корзина: {{ data |default:'пусто' }}
         </a>
     </li>
 </ul>
