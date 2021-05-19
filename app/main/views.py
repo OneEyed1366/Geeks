@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Sum
 from .models import Product, Category
 from shoppingCart_app.models import ShoppingCart
-from re import search
+from random import randrange
 
 slugs = [item.slug for item in Category.objects.all()]
 data = {
@@ -22,10 +22,11 @@ def products(request, slug=None):
         "quantity__sum"]
 
     if not slug:
-        data["product"] = Product.objects.all()[0]
+        data["product"] = Product.objects.all()[randrange(0, len(Product.objects.all()) - 1)]
         data["products"] = Product.objects.all()
     if slug:
-        data["product"] = Product.objects.filter(category__slug=slug)[0]
+        data["product"] = Product.objects.filter(category__slug=slug)[
+            randrange(0, len(Product.objects.filter(category__slug=slug)))]
         data["products"] = Product.objects.filter(category__slug=slug)
 
     return render(request, "products.html", context=data)

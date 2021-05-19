@@ -35,7 +35,7 @@ def remove(request, pk):
     if not shopp_cart:
         shopp_cart = ShoppingCart(user=request.user, product=product)
 
-    if shopp_cart.quantity > 0:
+    if shopp_cart.quantity >= 1:
         shopp_cart.quantity -= 1
     shopp_cart.save()
 
