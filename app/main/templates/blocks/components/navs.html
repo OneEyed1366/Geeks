@@ -2,6 +2,9 @@
 <ul class="menu">
     <li>
         {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <a href="{% url 'admin:index' %}">Админ.панель</a>
+            {% endif %}
             <a href="{% url 'auth:logout' %}">Выйти</a>
         {% else %}
             <a href="{% url 'auth:login' %}">Войти</a>

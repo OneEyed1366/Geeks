@@ -4,6 +4,7 @@ from os import path
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    is_active = models.BooleanField(verbose_name='Активно?', default=True)
 
     class Meta:
         ordering = ('name',)

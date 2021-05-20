@@ -76,10 +76,3 @@ class UserEditForm(UserChangeForm):
                 raise ValidationError("Вы не указали Ваше имя пользователя!")
             
         return cleaned_data
-
-    # def clean_name(self):
-    #     data = self.cleaned_data["username"]
-
-        
-
-    #     return data

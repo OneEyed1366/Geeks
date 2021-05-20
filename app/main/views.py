@@ -4,7 +4,7 @@ from .models import Product, Category
 from shoppingCart_app.models import ShoppingCart
 from random import randrange
 
-slugs = [item.slug for item in Category.objects.all()]
+# slugs = [item.slug for item in Category.objects.all()]
 data = {
     "cat_list": Category.objects.all(),
 }
