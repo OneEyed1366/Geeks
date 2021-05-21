@@ -4,11 +4,11 @@
 {% block body %}
 <form class="form-horizontal" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ update_form.as_p }}
+    {{ form.as_p }}
     <input class="form-control" type="submit" value="Сохранить изменения">
 </form>
 <button>
-    <a href="{% url 'admin:products:read' pk=category.pk %}">
+    <a href="{% url 'admin:products:index' pk=category.pk %}">
         Назад - К списку товаров (Категория: {{ category.name }})
     </a>
 </button>
