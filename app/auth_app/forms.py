@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, ValidationError
 from django.core import validators
+from random import random
+from hashlib import sha1
 
 from .models import User
 
@@ -44,6 +46,16 @@ class UserRegisterForm(UserCreationForm):
                 raise ValidationError("Вы не указали Ваше имя пользователя!")
 
         return cleaned_data
+
+    def save(self):
+        user = super(UserRegisterForm, self).save()
+        salt = sha1(str(random()).encode('utf8')).hexdigest()[:6]
+
+        user.is_active = False
+        user.activation_key = sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.save()
+
+        return user
 
 class UserEditForm(UserChangeForm):
     class Meta:

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'main',
     'auth_app',
     'shoppingCart_app',
+    'orders_app',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,11 @@ MEDIA_ROOT = MEDIA_DIR
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
+STATICFILES_DIRS = [
+    "/home/special.polls.com/polls/static",
+    "/home/polls.com/polls/static",
+    "/opt/webfiles/common",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

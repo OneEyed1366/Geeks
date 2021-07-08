@@ -47,4 +47,4 @@ def products_sel(request, pk):
     return render(request, "products/id.html", context=data)
 
 def contact(request):
-    return render(request, 'contact.html', content=data)
+    return render(request, 'contact.html', context=data)
