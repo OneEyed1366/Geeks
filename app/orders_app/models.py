@@ -1,7 +1,8 @@
 from django.db import models
 
 from django.conf import settings
-from main.models import Product
+from shoppingCart_app.models import ShoppingCart as Product
+# from main.models import Product
 
 
 class Order(models.Model):

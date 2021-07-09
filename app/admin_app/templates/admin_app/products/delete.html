@@ -11,12 +11,12 @@
         ?
     </div>
     <div class="card">
-        <form action="{% url 'admin:products:delete' pk=to_delete.pk %}" method="post">
+        <form action="{% url 'admin:products:delete' pk=pk %}" method="post">
             {% csrf_token %}
             <input type="submit" value="Удалить">
         </form>
         <button>
-            <a href="{% url 'admin:products:read' pk=category.pk%}">
+            <a href="{% url 'admin:products:index' pk=product.category.id %}">
                 Отменить удаление
             </a>
         </button>

@@ -1,5 +1,5 @@
 import admin_app.views as admin_app
-from django.urls import path
+from django.urls import path, re_path
 
 app_name = "admin_app-products"
 urlpatterns = [

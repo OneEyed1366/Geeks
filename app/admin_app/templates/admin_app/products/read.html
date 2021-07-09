@@ -4,24 +4,24 @@
 {% block body %}
 <div class="dashboard">
     <div class="dashboard__item">
-        {% if data.hero %}
+        {% if product.hero %}
         <div class="card">
-            <img src="{{ data.hero.url }}" alt="{{ data.title }}">
+            <img src="{{ product.hero.url }}" alt="{{ product.title }}">
         </div>
         {% endif %}
         <div class="card">
             <strong>
                 Цена:
             </strong>
-            {{ data.price }}
+            {{ product.price }}
         </div>
         <div class="card">
             <strong>Описание: </strong>
-            {{ data.desc }}
+            {{ product.desc }}
         </div>
         <div class="card">
             <button>
-                <a href="{% url 'admin:products:index' pk=data.category.pk %}">
+                <a href="{% url 'admin:products:index' pk=product.category.pk %}">
                     Назад к списку товаров
                 </a>
             </button>
