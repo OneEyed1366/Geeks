@@ -1,4 +1,4 @@
-import admin_app.views as admin_app
+import admin_app.views.users as admin_app
 from django.urls import path
 
 app_name = "admin_app-users"

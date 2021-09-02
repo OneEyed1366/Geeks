@@ -8,7 +8,7 @@
     <input class="form-control" type="submit" value="Сохранить изменения">
 </form>
 <button>
-    <a href="">
+    <a href="{% url 'admin:products:index' pk=category.pk %}">
         Назад - К списку товаров (Категория: {{ category.name }})
     </a>
 </button>

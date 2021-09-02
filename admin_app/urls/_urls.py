@@ -1,6 +1,6 @@
 from django.urls import include, path
 from . import users, categories, products
-from admin_app import views
+from admin_app.views import __index as views
 
 app_name = "admin_app"
 urlpatterns = [
