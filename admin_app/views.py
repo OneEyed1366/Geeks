@@ -26,11 +26,10 @@ class ProductsCreateView(CreateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('admin:products:create', kwargs={ "pk": super().get_object().id })
+        return reverse_lazy('admin:products:index', kwargs={ "pk": super().get_object().id })
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Товары - Редактировать товар'
-        context["category"] = super().get_object()
 
         return context
 
@@ -40,7 +39,7 @@ class CategoryCreateView(CreateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('admin:categories:create', kwargs={ "pk": super().get_object().id })
+        return reverse_lazy('admin:categories:read')
 
 class UsersCreateView(CreateView):
     model = User
@@ -54,7 +53,7 @@ class CategoryUpdateView(UpdateView):
     fields = '__all__'
     
     def get_success_url(self):
-        return reverse_lazy('admin:categories:update', kwargs={ "pk": super().get_object().id })
+        return reverse_lazy('admin:categories:read')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Категории - Редактировать категории'
@@ -111,7 +110,7 @@ class CategoryDeleteView(DeleteView):
     template_name = 'admin_app/categories/delete.html'
     
     def get_success_url(self):
-        return reverse_lazy('admin:categories:delete', kwargs={ "pk": super().get_object().id })
+        return reverse_lazy('admin:categories:read')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

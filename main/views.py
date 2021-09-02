@@ -13,7 +13,7 @@ data = {
 
 def index(request):
     data["products"] = Product.objects.all()
-    data["cart"] = Product.objects.all().aggregate(Sum("quantity"))["quantity__sum"]
+    # data["cart"] = Product.objects.all().aggregate(Sum("quantity"))["quantity__sum"]
 
     return render(request, "index.html", context=data)
 
