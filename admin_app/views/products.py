@@ -15,7 +15,7 @@ class ProductsListView(ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Админ.панель/Товары"
         context["category"] = get_object_or_404(Category, pk=pk)
-        context["datas"] = Product.objects.filter(category__pk=pk)
+        context["datas"] = Product.objects.filter(category__pk=pk).select_related('pk')
 
         return context
 

@@ -13,7 +13,6 @@ data = {
 
 def index(request):
     data["products"] = Product.objects.all()
-    # data["cart"] = Product.objects.all().aggregate(Sum("quantity"))["quantity__sum"]
 
     return render(request, "index.html", context=data)
 
@@ -24,7 +23,7 @@ def products(request, slug=None):
         "quantity__sum"]
     products = Product.objects.filter(
         category__is_active = True, category__slug=slug) if slug else Product.objects.filter(
-            category__is_active = True)
+            category__is_active = True).select_related('category')
     paginator = Paginator(products, 2)
     try:
         products_paginator = paginator.page(page)
@@ -33,7 +32,7 @@ def products(request, slug=None):
     except EmptyPage:
         products_paginator = paginator.page(paginator.num_pages)
 
-    data["product"] = products[randrange(0, len(products))]
+    data["product"] = products[randrange(0, len(products))] if len(products) > 0 else products
     data["products"] = products_paginator
 
     return render(request, "products/_index.html", context=data)

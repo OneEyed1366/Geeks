@@ -22,7 +22,7 @@ def index(request):
 def products(request, pk):
     title = 'Админ.панель/Товары'
     category = get_object_or_404(Category, pk=pk)
-    products_list = Product.objects.filter(category__pk=pk).order_by('title')
+    products_list = Product.objects.filter(category__pk=pk).order_by('title').select_related('category')
 
     content = {
         'title': title,

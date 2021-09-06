@@ -19,7 +19,8 @@ TEMPLATE_DIR = path.join(BASE_DIR, "templates")
 MEDIA_DIR = path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'auth_app.User'
 LOGIN_URL = '/auth/in/'
-
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'template_profiler_panel',
+    'django_extensions',
     'admin_app',
     'main',
     'auth_app',
@@ -56,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -88,9 +93,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'CONN_MAX_AGE': 60 * 3,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,18 +129,39 @@ USE_L10N = True
 
 USE_TZ = True
 
+if DEBUG:
+    def show_toolbar(request):
+        return True
 
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }
+
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+        'debug_toolbar.panels.profiling.ProfilingPanel',
+        'template_profiler_panel.panels.template.TemplateProfilerPanel',
+    ]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = path.join(BASE_DIR, 'static')
 MEDIA_ROOT = MEDIA_DIR
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
-    "/home/special.polls.com/polls/static",
-    "/home/polls.com/polls/static",
-    "/opt/webfiles/common",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
